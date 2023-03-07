@@ -1,0 +1,186 @@
+body {
+	padding-left: 5vw;
+	padding-right: 5vw;
+	padding-top: 5vh;
+	padding-bottom: 1vh;
+	color: black;
+	font-size: 25px;
+	font-family: Arial;
+    /*background: linear-gradient(0deg, #fd5d5d 0%, #f7ff86 100%);*/
+	background: linear-gradient(180deg, #b60000 0%, #FFCC00 100%);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+
+.dark-mode {
+	background: black;
+	/*color: white;*/
+}
+
+/* Define a class for the button */
+.myButton {
+	background-color: #4caf50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.myButton:hover {
+	/* Added */
+	background-color: #3e8e41; /* Darker green */
+}
+
+/* Define a class for the box */
+.myBox {
+	/*display: flex;*/
+	justify-content: center;
+	align-items: center;
+	width: 75%;
+	height: 45%;
+	margin: auto;
+	background-color: aliceblue;
+	border-radius: 10px; /* smaller value for less rounding */
+	border: 2px solid green; /* green border */
+}
+
+/* Add some shadow effects to the button and box */
+.myButton,
+.toggle-container,
+.myBox {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Define a class for the dropdown menus */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* Slider Stuff */
+.toggle-container {
+    position: fixed;
+    top: 1vh; /* 2% of viewport height */
+	right: 1vw; /* 2% of viewport width */
+	display: flex;
+	align-items: center;
+    background-color: #12121270;
+    border: 4px solid #12121200;
+    border-radius: 10px; /* smaller value for less rounding */
+}
+
+.toggle-text {
+	margin-right: 1vh; /* equal to font size */
+	font-size: 3vh;
+    color: white;
+}
+
+.toggle-switch {
+	position: relative;
+	display: inline-block;
+	/*width: 60px;*/
+	width: 6vh;
+	/*height: 34px;*/
+	height: 3vh;
+}
+
+.toggle-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	border-radius: 50%;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	border-radius: 50%;
+	/*height: 26px;*/
+	height: 2vh;
+	width: 2vh;
+	left: 0.5vh;
+	bottom: 0.5vh;
+	background-color: white;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+input:checked + .slider {
+	background-color: #2196f3;
+}
+input:focus + .slider {
+	box-shadow: 0;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(3vh);
+	-ms-transform: translateX(3vh);
+	transform: translateX(3vh);
+} /* Rounded sliders */
+.slider.round {
+	border-radius: 34px;
+}
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.maincontainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5vh;
+}
+
+.subcontainer {
+	width: 33.33%;
+	text-align: center;
+    margin: auto;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .subcontainer {
+    width: 100%;
+  }
+}
+
+#map {
+	width: 100%;
+	height: 30em;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #121212;
+    color: white;
+    text-align: center;
+	font-size: 2vh;
+	
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+.twitter-timeline {
+    margin: auto;
+    width: 90%;
+}
