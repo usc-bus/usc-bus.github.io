@@ -1,8 +1,11 @@
+import bus_times_data from "./data/bus-times.json" assert { type: "json" };
+import route_links from "./data/route-map-links.json" assert { type: "json" };
+
 let locationinfojson = {};
-currentlySelectedroute = "";
-currentlySelectedroutetype = "";
-currentlySelectedsubrouteorstop = "";
-hasNativeDarkMode = false;
+let currentlySelectedroute = "";
+let currentlySelectedroutetype = "";
+let currentlySelectedsubrouteorstop = "";
+let hasNativeDarkMode = false;
 
 let darkToggle = document.querySelector("#darkToggle");
 darkToggle.addEventListener("change", () => {
@@ -26,34 +29,6 @@ window
 			activateDarkMode();
 		}
 	});
-
-// Define a function that queries the API using fetch() and stores the response in let locationinfojson
-function queryAPI() {
-	// Construct the URL with the parameters
-	let url =
-		"https://usc-bus-api.azurewebsites.net/api/usc-bus-api?requestType=returnLocations";
-
-	// Use fetch() to send a GET request to the URL and get a response
-	fetch(url)
-		.then((response) => {
-			// Check if the response is ok
-			if (response.ok) {
-				// Parse the response body as JSON data
-				return response.json();
-			} else {
-				// Throw an error if the response is not ok
-				throw new Error("Something went wrong");
-			}
-		})
-		.then((data) => {
-			// Do something with the JSON data
-			console.log(data);
-
-			// Store the JSON data in the let locationinfojson
-			locationinfojson = data;
-			populateFields();
-		});
-}
 
 function populateBox(texttopopulate) {
 	// Get a reference to the box element by its id
@@ -105,13 +80,6 @@ function populateDropdowns() {
 		currentlySelectedroutetype = "Stops";
 	}
 
-	console.log(currentlySelectedroutetype);
-	console.log(
-		locationinfojson[Object.keys(locationinfojson)[firstdropdown.selectedIndex]][
-			currentlySelectedroutetype
-		][0]
-	);
-
 	for (
 		let i = 0;
 		i <
@@ -148,8 +116,6 @@ function subrouteorstopchangeListener() {
 }
 
 function routechangeListener() {
-	console.log("routechangeListener");
-
 	// Get a reference to the dropdown box element by its id
 	let firstdropdown = document.getElementById("firstdropdown");
 	let seconddropdown = document.getElementById("seconddropdown");
@@ -198,11 +164,14 @@ function routechangeListener() {
 	currentlySelectedsubrouteorstop =
 		seconddropdown.options[seconddropdown.selectedIndex].text;
 	
-	mapurl = locationinfojson[Object.keys(locationinfojson)[firstdropdown.selectedIndex]]["map-link"];
+	
+
+	//get map-link from locationinfojson
+	let mapurl = locationinfojson[currentlySelectedroute]["map-link"];
 	replaceMap(mapurl);
 }
 
-function gettimesfromAPI() {
+function callazureapi() {
 	let url =
 		"https://usc-bus-api.azurewebsites.net/api/usc-bus-api?requestType=returnTime&Route=" +
 		currentlySelectedroute +
@@ -232,12 +201,13 @@ function gettimesfromAPI() {
 }
 
 function populateFields() {
+	console.log(locationinfojson);
 	populateDropdowns();
+	callazureapi()
 }
 
 window.onload = function () {
-	queryAPI();
-	populateBox("Select a route and subroute/stop to see the next bus times");
+	return_locations(populateFields);
 	if (
 		window.matchMedia &&
 		window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -263,4 +233,41 @@ function drawPolyline(gpsCoordinates) {
 
   // Add the polyline to the map
   polyline.setMap(map);
+}
+
+function return_locations(callback) {
+	console.log(bus_times_data);
+	var result = {};
+	//bus_times_data is an array of objects
+	//each object has a Route, Departure, and Destination property
+	//for each object in this array run code
+	bus_times_data.forEach(function (item) {
+		var route = item.Route;
+		// if there is no key in result with the name of the route
+		if (!result.hasOwnProperty(route))
+		{
+			if (item.hasOwnProperty("Destination"))
+			{
+				result[route] = {'Subroutes': []}
+			}
+			else
+			{
+				result[route] = {'Stops': []}
+			}
+		}
+		if (item.hasOwnProperty("Destination"))
+		{
+			result[route]['Subroutes'].push(item.Departure+ " to " + item.Destination);
+		}
+		else
+		{
+			result[route]['Stops'].push(item.Departure);
+		}
+		if (route_links.hasOwnProperty(route))
+		{
+			result[route]['map-link'] = route_links[route];
+		}
+	});
+	locationinfojson = result;
+	callback();
 }

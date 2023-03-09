@@ -16,11 +16,11 @@
     
     <div class="maincontainer">
         <div class="subcontainer">
-            <!-- Create a button with an onclick attribute that calls a JavaScript function -->
-            <button class="myButton" onclick="gettimesfromAPI()">Load API</button>
+            <!-- Create a button with an onclick attribute that calls gettimesfromAPI() -->
+            <button class="myButton" onclick="callazureapi()">Get Times</button>
     
             <!-- Create a box with an id attribute that can be used to display data -->
-            <div class="myBox" id="databox"></div>
+            <div class="myBox" id="databox"><p>Select a route and subroute/stop to see the next bus times</p></div>
     
             <!-- Create a dropdown list with an id attribute that can be used to display data -->
             <select id="firstdropdown" class="dropdown">
@@ -41,11 +41,9 @@
     </div>
 
     <div class="footer">
-        Created By: <a href="https://github.com/JLO64">Julian Lopez</a>
+        Created By: <a href="https://github.com/JLO64">Julian Lopez (lopezjul@usc.edu)</a>
     </div>
-    
-    <script src="script.js"></script>
 
-    <script src="script.js"></script>
+    <script type="module" src="./script.js"></script>
   </body>
 </html>

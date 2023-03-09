@@ -28,7 +28,7 @@ body {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 0.8em;
 }
 
 .myButton:hover {
@@ -160,7 +160,7 @@ input:checked + .slider:before {
 
 #map {
 	width: 100%;
-	height: 30em;
+	height: 60vh;
 }
 
 .footer {
@@ -184,3 +184,21 @@ a {
     margin: auto;
     width: 90%;
 }
+
+/*make dropdowns fit in with button
+.dropdown{
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	font-size: 1em;
+	padding: 0.5em 0.5em;
+	text-align: center;
+	line-height: 1.5em;
+	white-space: nowrap;
+	cursor: pointer;
+	border: 0;
+	background-color: #4caf50;
+	color: white;
+	text-align: inherit;
+	text-decoration: none;
+}*/
