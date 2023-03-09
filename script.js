@@ -1,5 +1,15 @@
-import bus_times_data from "./data/bus-times.json" assert { type: "json" };
-import route_links from "./data/route-map-links.json" assert { type: "json" };
+let bus_times_data = {};
+fetch ('./data/bus-times.json')
+  .then (response => response.json ())
+  .then (data => {
+	bus_times_data = data;
+	  });
+let route_links = {};
+fetch ('./data/route-map-links.json')
+  .then (response => response.json ())
+  .then (data => {
+	route_links = data;
+	  });
 
 let locationinfojson = {};
 let currentlySelectedroute = "";
@@ -171,7 +181,7 @@ function routechangeListener() {
 	replaceMap(mapurl);
 }
 
-function callazureapi() {
+export function callazureapi() {
 	let url =
 		"https://usc-bus-api.azurewebsites.net/api/usc-bus-api?requestType=returnTime&Route=" +
 		currentlySelectedroute +
@@ -203,7 +213,6 @@ function callazureapi() {
 function populateFields() {
 	console.log(locationinfojson);
 	populateDropdowns();
-	callazureapi()
 }
 
 window.onload = function () {

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>USC Bus Website</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="toggle-container">
         <span class="toggle-text">Dark Mode</span>
         <label class="toggle-switch">
@@ -13,37 +15,42 @@
             </input>
         </label>
     </div>
-    
+
     <div class="maincontainer">
         <div class="subcontainer">
-            <!-- Create a button with an onclick attribute that calls gettimesfromAPI() -->
-            <button class="myButton" onclick="callazureapi()">Get Times</button>
-    
-            <!-- Create a box with an id attribute that can be used to display data -->
-            <div class="myBox" id="databox"><p>Select a route and subroute/stop to see the next bus times</p></div>
-    
-            <!-- Create a dropdown list with an id attribute that can be used to display data -->
+            <!-- Create a Title that says "Route" -->
+            <p class="routetitle">Route</p>
             <select id="firstdropdown" class="dropdown">
                 <option value="">Please select a route</option>
             </select>
-    
-            <!-- Create a dropdown list with an id attribute that can be used to display data -->
-            <select id="seconddropdown">
+            <p class="routetitle">Stop/Subroute</p>
+            <select id="seconddropdown" class="dropdown">
                 <option value="">Please select a subroute/stop</option>
             </select>
+            <div class="myBox" id="databox">
+                <p>Select a route and subroute/stop to see the next bus times</p>
+            </div>
+            <button class="myButton" onclick="callazureapi()">Check Times</button>
         </div>
         <div class="subcontainer">
-            <iframe id="map" src="https://www.google.com/maps/d/embed?mid=1aeap9VX73jKO3rBU6ZkJ2s5c0tJoa1Q&ehbc=2E312F"></iframe>
+            <iframe id="map"
+                src="https://www.google.com/maps/d/embed?mid=1aeap9VX73jKO3rBU6ZkJ2s5c0tJoa1Q&ehbc=2E312F"></iframe>
         </div>
         <div class="subcontainer">
-            <a class="twitter-timeline" data-height="400" href="https://twitter.com/USCmoves?ref_src=twsrc%5Etfw">Tweets by USCmoves</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" data-height="400" href="https://twitter.com/USCmoves?ref_src=twsrc%5Etfw">Tweets
+                by USCmoves</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
     </div>
 
     <div class="footer">
         Created By: <a href="https://github.com/JLO64">Julian Lopez (lopezjul@usc.edu)</a>
     </div>
+    <script type="module">
+        import { callazureapi } from "./script.js";
+        window.callazureapi = callazureapi;
+    </script>
 
-    <script type="module" src="./script.js"></script>
-  </body>
+</body>
+
 </html>
